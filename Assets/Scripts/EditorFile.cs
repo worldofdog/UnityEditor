@@ -2,11 +2,52 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using System.IO;
 
 namespace Common
 {
     public class EditorFile : Singleton<EditorFile>
     {
+        /// <summary>
+        /// 获取文件名字
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static string GetFileName(FileInfo info)
+        {
+            int count = 0;
+            for (int i = info.Name.Length - 1; i >= 0; i--)
+            {
+                if (info.Name[i] == '.')
+                {
+                    count = i;
+                    break;
+                }
+            }
+
+            return info.Name.Substring(0, count);
+        }
+
+        /// <summary>
+        /// 获取文件格式
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static string GetFileFormat(FileInfo info)
+        {
+            int count = 0;
+            for (int i = info.Name.Length - 1; i >= 0; i--)
+            {
+                if (info.Name[i] == '.')
+                {
+                    count = i;
+                    break;
+                }
+            }
+
+            return info.Name.Substring(count + 1, info.Name.Length - count - 1);
+        }
+
         /// <summary>
         /// 将Assets路径转换为File路径
         /// </summary>
